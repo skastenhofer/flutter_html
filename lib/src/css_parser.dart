@@ -637,13 +637,17 @@ Style declarationsToStyle(Map<String, List<css.Expression>> declarations) {
           style.textShadow = ExpressionMapping.expressionToTextShadow(value);
           break;
         case 'text-transform':
-          final val = (value.first as css.LiteralTerm).text;
-          if (val == 'uppercase') {
-            style.textTransform = TextTransform.uppercase;
-          } else if (val == 'lowercase') {
-            style.textTransform = TextTransform.lowercase;
-          } else if (val == 'capitalize') {
-            style.textTransform = TextTransform.capitalize;
+          if (value.first is css.LiteralTerm) {
+            final val = (value.first as css.LiteralTerm).text;
+            if (val == 'uppercase') {
+              style.textTransform = TextTransform.uppercase;
+            } else if (val == 'lowercase') {
+              style.textTransform = TextTransform.lowercase;
+            } else if (val == 'capitalize') {
+              style.textTransform = TextTransform.capitalize;
+            } else {
+              style.textTransform = TextTransform.none;
+            }
           } else {
             style.textTransform = TextTransform.none;
           }
